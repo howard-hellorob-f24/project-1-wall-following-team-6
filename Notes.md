@@ -6,5 +6,7 @@
       - Password: i<3robots!
 3. Or Just connect to webapp with IP address assuming you're already connected to the WiFi
 
-# 
-   
+# Bugs We Encountered
+
+- time.sleep() to give it time to start  . . .
+- If not stopping on Ctrl+C, then also consider "signal" library or kill command in Python 
