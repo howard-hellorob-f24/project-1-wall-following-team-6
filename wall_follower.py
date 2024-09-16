@@ -16,8 +16,9 @@ def find_min_dist(ranges, thetas):
         tuple: The length and angle of the shortest ray in the Lidar scan.
     """
     min_dist, min_angle = None, None
-
-    # TODO: Find the length and angle of the shortest distance in the ray.
+    min_dist = np.min(ranges)
+    index = ranges.index(min_dist)
+    min_angle = ranges[index]
 
     return min_dist, min_angle
 
@@ -34,8 +35,8 @@ def cross_product(v1, v2):
     """
     res = np.zeros(3)
     # TODO: Compute the cross product.
+    res = np.cross(v1,v2)
     return res
-
 
 robot = MBot()
 setpoint = 0  # TODO: Pick your setpoint.
