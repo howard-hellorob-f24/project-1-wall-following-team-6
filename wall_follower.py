@@ -51,11 +51,10 @@ def cross_product(v1, v2):
     return res
 
 robot = MBot()
-setpoint = 0  # TODO: Pick your setpoint.
+setpoint = 0.1  # TODO: Pick your setpoint.
 # TODO: Declare any other variables you might need here.
 ranges, thetas = robot.read_lidar()
-print(find_min_dist(ranges, thetas))
-
+# print(find_min_dist(ranges, thetas))
 
 try:
     while True:
@@ -69,22 +68,27 @@ try:
         min_dist,min_angle = find_min_dist(ranges,thetas)
 
         #Step 2 Use the cross product to find a vector pointing parallel to the wall, in the direction the robot should drive.
+        mag= 0.5
         v_to_wall = [1*math.cos(min_angle),1*math.sin(min_angle),0]
 
-        follow = cross_product(v_to_wall, [0,0,1])
-        print(follow)
-        
+        follow = mag * cross_product(v_to_wall, [0,0,1])
 
         #Step 3 Apply a correction to the vector using bang-bang or P-control to move closer to or farther from the wall, depending on the current distance to the wall.
-    
-
+        kp = 0.25
+        if min_dist < setpoint:
+            error = setpoint - min_dist
+            follow += kp*error
+        if min_dist > setpoint:
+            error = min_dist - setpoint
+            follow -= kp*error 
+        if min_dist == setpoint:
+            pass
+        print(follow)
         #Step 4 Convert the vector to a velocity vector and send a velocity command to the robot.
         robot.drive(follow[0], follow[1], follow[2])
 
-
-
         # Optionally, sleep for a bit before reading a new scan.
-        time.sleep(0.5)
+        time.sleep(0.25)
 except:
     # Catch any exception, including the user quitting, and stop the robot.
     robot.stop()
