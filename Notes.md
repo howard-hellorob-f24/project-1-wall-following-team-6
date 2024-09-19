@@ -9,4 +9,5 @@
 # Bugs We Encountered
 
 - time.sleep() to give it time to start  . . .
-- If not stopping on Ctrl+C, then also consider "signal" library or kill command in Python 
+- If not stopping on Ctrl+C, then also consider "signal" library or kill command in Python
+- For wall follower, did some testing away from the robot and realized there may be mistake in the code near the P-Control section -> https://replit.com/@AnuoluwapoSoney/MinorIndigoApplicationserver#main.py
